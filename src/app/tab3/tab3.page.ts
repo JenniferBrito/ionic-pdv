@@ -1,6 +1,6 @@
+import { Product } from './../models/product';
 import { ProductService } from './../services/product.service';
 import { Component } from '@angular/core';
-import { title } from 'node:process';
 
 @Component({
   selector: 'app-tab3',
@@ -14,7 +14,7 @@ export class Tab3Page {
   ) {}
 
   addProduct(){
-    this.productService.create({uid, title, price, description}); // criar um form p/ product
+   // this.productService.add(); // criar um form p/ product
   }
 
 }

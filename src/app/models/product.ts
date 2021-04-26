@@ -1,6 +1,7 @@
 export interface Product {
-  uid: string,
-  title: string,
-  description: string,
-  price: number,
+  uid?: string,
+  nome: string,
+  qtd: number,
+  precoCusto: number,
+  precoVenda: number,
 }
