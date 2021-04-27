@@ -1,3 +1,4 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { PriceValidator } from './../../validators/price';
 import { ProductService } from './../services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,7 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class ProductFormComponent implements OnInit {
 
   public addProductForm: FormGroup;
-  constructor(public formBuilder: FormBuilder, public firebaseData: ProductService) { }
+  constructor(public formBuilder: FormBuilder, public firebaseData: ProductService, public db: AngularFirestore) { }
 
   ngOnInit() {
     this.addProductForm = this.formBuilder.group({

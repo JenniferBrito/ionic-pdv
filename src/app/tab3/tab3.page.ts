@@ -1,6 +1,7 @@
-import { Product } from './../models/product';
 import { ProductService } from './../services/product.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-tab3',
@@ -10,11 +11,17 @@ import { Component } from '@angular/core';
 export class Tab3Page {
 
   constructor(
+    private router: Router,
     public productService: ProductService,
   ) {}
 
-  addProduct(){
-   // this.productService.add(); // criar um form p/ product
+  // chamar página do form
+    pushPage(){
+      this.router.navigate(['/ProductFormComponent']);
+    }
+
+
+
   }
 
-}
+

@@ -1,99 +1,102 @@
 <ion-content>
-  <form [formGroup]="addProductForm" (submit)="addProduct()" novalidate></form>
+  <form [formGroup]="addProductForm" (submit)="addProduct()" novalidate>
 
-<!--nome do produto-->
-  <ion-item>
-    <ion-label stacked>Nome do Produto</ion-label>
+
+    <!--nome do produto-->
+      <ion-item>
+        <ion-label stacked>Nome do Produto</ion-label>
+        <ion-input
+          formControlName="nome"
+          type="text"
+          placeholder="Nome do produto"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item
+      class="error-message"
+      *ngIf="!addProductForm.controls.nome.valid
+      && addProductForm.controls.nome.touched"
+    >
+      <p>O nome do produto deve conter 45 caracteres ou menos</p>
+    </ion-item>
     <ion-input
-      formControlName="nome"
-      type="text"
-      placeholder="Nome do produto"
+      [class.invalid]="!addProductForm.controls.nome.valid
+        &&  addProductForm.controls.nome.touched"
     >
     </ion-input>
-  </ion-item>
-  <ion-item
-  class="error-message"
-  *ngIf="!addProductForm.controls.nome.valid
-  && addProductForm.controls.nome.touched"
->
-  <p>O nome do produto deve conter 45 caracteres ou menos</p>
-</ion-item>
-<ion-input
-  [class.invalid]="!addProductForm.controls.nome.valid
-    &&  addProductForm.controls.nome.touched"
->
-</ion-input>
-
-<!--quantidade do produto-->
-  <ion-item>
-    <ion-label stacked>Quantidade</ion-label>
+    <!--quantidade do produto-->
+      <ion-item>
+        <ion-label stacked>Quantidade</ion-label>
+        <ion-input
+          formControlName="qtd"
+          type="number"
+          placeholder="Quantidade"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item
+      class="error-message"
+      *ngIf="!addProductForm.controls.qtd.valid
+      && addProductForm.controls.qtd.touched"
+    >
+      <p>A quantidade tem que ser maior que zero</p>
+    </ion-item>
     <ion-input
-      formControlName="qtd"
-      type="number"
-      placeholder="Quantidade"
+      [class.invalid]="!addProductForm.controls.qtd.valid
+        &&  addProductForm.controls.qtd.touched"
     >
     </ion-input>
-  </ion-item>
-  <ion-item
-  class="error-message"
-  *ngIf="!addProductForm.controls.qtd.valid
-  && addProductForm.controls.qtd.touched"
->
-  <p>A quantidade tem que ser maior que zero</p>
-</ion-item>
-<ion-input
-  [class.invalid]="!addProductForm.controls.qtd.valid
-    &&  addProductForm.controls.qtd.touched"
->
-</ion-input>
 
-<!--preco custo do produto-->
-  <ion-item>
-    <ion-label stacked>Preço de Custo</ion-label>
+    <!--preco custo do produto-->
+      <ion-item>
+        <ion-label stacked>Preço de Custo</ion-label>
+        <ion-input
+          formControlName="precoCusto"
+          type="number"
+          placeholder="Preço de Custo"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item
+      class="error-message"
+      *ngIf="!addProductForm.controls.precoCusto.valid
+      && addProductForm.controls.precoCusto.touched"
+    >
+      <p>O preço tem que ser maior que zero</p>
+    </ion-item>
     <ion-input
-      formControlName="precoCusto"
-      type="number"
-      placeholder="Preço de Custo"
+      [class.invalid]="!addProductForm.controls.precoCusto.valid
+        &&  addProductForm.controls.precoCusto.touched"
     >
     </ion-input>
-  </ion-item>
-  <ion-item
-  class="error-message"
-  *ngIf="!addProductForm.controls.precoCusto.valid
-  && addProductForm.controls.precoCusto.touched"
->
-  <p>O preço tem que ser maior que zero</p>
-</ion-item>
-<ion-input
-  [class.invalid]="!addProductForm.controls.precoCusto.valid
-    &&  addProductForm.controls.precoCusto.touched"
->
-</ion-input>
 
-<!--preco venda do produto-->
-  <ion-item>
-    <ion-label stacked>Preço de Venda</ion-label>
+    <!--preco venda do produto-->
+      <ion-item>
+        <ion-label stacked>Preço de Venda</ion-label>
+        <ion-input
+          formControlName="precoVenda"
+          type="number"
+          placeholder="Preço de Venda"
+        >
+        </ion-input>
+      </ion-item>
+      <ion-item
+      class="error-message"
+      *ngIf="!addProductForm.controls.precoVenda.valid
+      && addProductForm.controls.precoVenda.touched"
+    >
+      <p>O preço tem que ser maior que zero</p>
+    </ion-item>
     <ion-input
-      formControlName="precoVenda"
-      type="number"
-      placeholder="Preço de Venda"
+      [class.invalid]="!addProductForm.controls.precoVenda.valid
+        &&  addProductForm.controls.precoVenda.touched"
     >
     </ion-input>
-  </ion-item>
-  <ion-item
-  class="error-message"
-  *ngIf="!addProductForm.controls.precoVenda.valid
-  && addProductForm.controls.precoVenda.touched"
->
-  <p>O preço tem que ser maior que zero</p>
-</ion-item>
-<ion-input
-  [class.invalid]="!addProductForm.controls.precoVenda.valid
-    &&  addProductForm.controls.precoVenda.touched"
->
-</ion-input>
 
-<button ion-button block type="submit" [disabled]="!addProductForm.valid">Adicionar produto</button>
+    <button ion-button block type="submit" [disabled]="!addProductForm.valid">Adicionar produto</button>
+  </form>
+
+
 
 
 </ion-content>

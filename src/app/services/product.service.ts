@@ -42,7 +42,7 @@ constructor(
   } */
 
   saveProduct(nome, qtd, precoCusto, precoVenda){
-      return this.db.collection('products'). add({nome, qtd, precoCusto, precoVenda});
+      return this.db.collection('products').add({nome, qtd, precoCusto, precoVenda});
   }
 
 }
