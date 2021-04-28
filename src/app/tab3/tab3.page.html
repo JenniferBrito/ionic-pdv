@@ -18,5 +18,14 @@
       <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
     </ion-button>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+<!--Listar Produtos-->
+<ion-item
+*ngFor="let product of productList | async"
+routerLink="/detail/{{product.id}}"
+>
+<ion-label>
+  <h2>{{ product.nome}}</h2>
+  <p>Preco de Venda: {{ product.precoVenda }}</p>
+</ion-label>
+</ion-item>
 </ion-content>

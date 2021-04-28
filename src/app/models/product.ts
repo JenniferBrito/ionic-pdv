@@ -1,5 +1,5 @@
 export interface Product {
-  uid?: string,
+  id?: string,
   nome: string,
   qtd: number,
   precoCusto: number,

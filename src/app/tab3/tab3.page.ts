@@ -1,6 +1,8 @@
 import { ProductService } from './../services/product.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Product } from '../models/product';
 
 
 @Component({
@@ -9,6 +11,8 @@ import { Router } from '@angular/router';
   styleUrls: ['tab3.page.scss']
 })
 export class Tab3Page {
+
+  public productList: Observable<Product[]>;
 
   constructor(
     private router: Router,
@@ -20,7 +24,9 @@ export class Tab3Page {
       this.router.navigate(['/ProductFormComponent']);
     }
 
-
+    ngOnInit(){
+      this.productList = this.productService.getProductList();
+    }
 
   }
 

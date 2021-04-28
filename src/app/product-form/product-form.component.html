@@ -1,7 +1,14 @@
 <ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <p>Cadastro de Produtos</p>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="tab3"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
   <form [formGroup]="addProductForm" (submit)="addProduct()" novalidate>
-
-
     <!--nome do produto-->
       <ion-item>
         <ion-label stacked>Nome do Produto</ion-label>
@@ -17,7 +24,7 @@
       *ngIf="!addProductForm.controls.nome.valid
       && addProductForm.controls.nome.touched"
     >
-      <p>O nome do produto deve conter 45 caracteres ou menos</p>
+      <p>Nome inválido!</p>
     </ion-item>
     <ion-input
       [class.invalid]="!addProductForm.controls.nome.valid
