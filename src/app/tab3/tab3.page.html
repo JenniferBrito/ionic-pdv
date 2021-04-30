@@ -3,6 +3,11 @@
     <ion-title>
       Produtos
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="pushPage()">
+        <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -14,9 +19,7 @@
   </ion-header>
 
 
-    <ion-button (click)="pushPage()">
-      <ion-icon slot="icon-only" name="add-circle-outline"></ion-icon>
-    </ion-button>
+
 
 <!--Listar Produtos-->
 <ion-item
