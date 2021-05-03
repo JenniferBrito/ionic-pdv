@@ -22,13 +22,50 @@
 
 
 <!--Listar Produtos-->
-<ion-item
-*ngFor="let product of productList | async"
-routerLink="/detail/{{product.id}}"
->
+<ion-item *ngFor="let product of productList| async">
 <ion-label>
   <h2>{{ product.nome}}</h2>
-  <p>Preco de Venda: {{ product.precoVenda }}</p>
+
+<div class="page-wrapper">
+  <div class="row">
+    <div class="column">
+      <p>Quantidade: {{ product.qtd }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrapper">
+  <div class="column">
+    <div class="column">
+      <p>Preco de Custo: {{ product.precoCusto }}</p>
+    </div>
+  </div>
+</div>
+
+<div class="page-wrapper">
+  <div class="column">
+    <div class="column">
+      <p>Preco de Venda: {{ product.precoVenda }}</p>
+    </div>
+  </div>
+</div>
+
+
+
+<ion-button (click)="deleteProduct(product.id)">
+  <ion-icon name="trash" style="zoom: 1.5"></ion-icon>
+</ion-button>
+
+<ion-button (click)="editProduct(product.id)">
+  <ion-icon name="create-outline" style="zoom: 1.5"></ion-icon>
+</ion-button>
+
 </ion-label>
 </ion-item>
+
+
+
+
+
+
 </ion-content>
