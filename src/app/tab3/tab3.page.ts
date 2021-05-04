@@ -1,8 +1,8 @@
+import { Product } from './../models/product';
 import { ProductService } from './../services/product.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Product } from '../models/product';
 import { AlertController } from '@ionic/angular';
 
 
@@ -14,6 +14,7 @@ import { AlertController } from '@ionic/angular';
 export class Tab3Page {
 
   public productList: Observable<Product[]>;
+
 
   constructor(
     private alertController: AlertController,
@@ -55,12 +56,8 @@ export class Tab3Page {
       await alert.present();
      }
 //edita produto
-     async editProduct(productId: string): Promise<void>{
-       this.productService.editProduct(productId).then(
-         () => {
-           this.router.navigateByUrl('');
-        }
-       );
+      updateProduct(id: string){
+        this.router.navigate(['/UpdateProductsComponent']);
      }
   }
 

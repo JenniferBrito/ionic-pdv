@@ -1,6 +1,6 @@
-import { UpdateProductComponent } from './../update-product/update-product.component';
 import { Product } from './../models/product';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ModalController } from '@ionic/angular';
@@ -12,8 +12,11 @@ export class ProductService {
 
 
   products: AngularFirestoreCollection<Product>;
+  productRef: AngularFireObject<any>;
+
 constructor(
   private db: AngularFirestore,
+  private fire: AngularFireDatabase,
   private modalController: ModalController,
 
   ) {}
@@ -36,6 +39,11 @@ constructor(
     return this.db.collection<Product>(`products`).valueChanges();
   }
 
+  getProduct(id: string){
+    this.productRef = this.fire.object('/products' + id);
+    return this.productRef;
+  }
+
   //lista detalhes do produto
   getProductDetail(productId: string): Observable<Product>{
     return this.db.collection('products').doc<Product>(productId).valueChanges();
@@ -46,16 +54,12 @@ constructor(
      return this.db.doc(`products/${productId}`).delete();
    }
 
-  async editProduct(nome: string, qtd: number, precoCusto: number, precoVenda: number){
-     const modal =  this.modalController.create({
-       component: UpdateProductComponent,
-       componentProps: {
-         'nome' : nome,
-         'qtd' : qtd,
-         'precoCusto' : precoCusto,
-         'precoVenda': precoVenda
-       }
+  updateProduct(id, product: Product){
+     return this.productRef.update({
+       nome: product.nome,
+       qtd: product.qtd,
+       precoCusto: product.precoCusto,
+       precoVenda: product.precoVenda
      });
-     return (await modal).present();
    }
 }

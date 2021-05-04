@@ -1,9 +1,7 @@
-import { TabsPage } from './tabs/tabs.page';
-import { Tab3PageModule } from './tab3/tab3.module';
+import { UpdateProductComponent } from './update-product/update-product.component';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { Tab3Page } from './tab3/tab3.page';
 
 const routes: Routes = [
    {
@@ -13,9 +11,6 @@ const routes: Routes = [
   {
     path: 'ProductFormComponent',
     component: ProductFormComponent
-  }, {
-    path: 'detail',
-    loadChildren: () => import('./pages/detail/detail.module').then( m => m.DetailPageModule)
   },
 
   {
@@ -23,9 +18,14 @@ const routes: Routes = [
     loadChildren: () => import('./tab3/tab3.module').then(m => m.Tab3PageModule)
   },
   {
-    path: 'update-product',
-    loadChildren: () => import('./update-product/update-product.module').then( m => m.UpdateProductPageModule)
-  }
+    path: 'UpdateProductComponent',
+    component: UpdateProductComponent,
+  },
+  {
+    path: 'updat-products',
+    loadChildren: () => import('./updat-products/updat-products.module').then( m => m.UpdatProductsPageModule)
+  },
+   { path: 'updateProducts', loadChildren: () => import('./update-products/update-products/update-products.module').then(m => m.UpdateProductsModule) }
 
 
 ];
