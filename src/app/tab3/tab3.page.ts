@@ -57,7 +57,7 @@ export class Tab3Page {
      }
 //edita produto
       updateProduct(id: string){
-        this.router.navigate(['/UpdateProductsComponent']);
+        this.router.navigate(['/update-products']);
      }
   }
 

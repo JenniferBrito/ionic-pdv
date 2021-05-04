@@ -3,7 +3,6 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ModalController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +16,6 @@ export class ProductService {
 constructor(
   private db: AngularFirestore,
   private fire: AngularFireDatabase,
-  private modalController: ModalController,
 
   ) {}
 
@@ -40,7 +38,7 @@ constructor(
   }
 
   getProduct(id: string){
-    this.productRef = this.fire.object('/products' + id);
+    this.productRef = this.fire.object(`products/${id}`);
     return this.productRef;
   }
 
