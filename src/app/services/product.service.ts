@@ -4,6 +4,7 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,10 +13,12 @@ export class ProductService {
 
   products: AngularFirestoreCollection<Product>;
   productRef: AngularFireObject<any>;
+  dbURL = 'console.firebase.google.com/project/teste-5b601/firestore';
+
 
 constructor(
   private db: AngularFirestore,
-  private fire: AngularFireDatabase,
+  private fire: AngularFireDatabase, // pega o objeto inteiro
 
   ) {}
 
@@ -52,12 +55,7 @@ constructor(
      return this.db.doc(`products/${productId}`).delete();
    }
 
-  updateProduct(id, product: Product){
-     return this.productRef.update({
-       nome: product.nome,
-       qtd: product.qtd,
-       precoCusto: product.precoCusto,
-       precoVenda: product.precoVenda
-     });
+  async updateProduct(id, product: Product): Promise<void>{
+    return await this.db.doc(`project/teste-5b601/firestore/products/`+ id).update(product);
    }
 }
