@@ -1,8 +1,9 @@
 import { Product } from './../models/product';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '@angular/fire/firestore';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
 
 @Injectable({
@@ -10,18 +11,22 @@ import { Observable } from 'rxjs';
 })
 export class ProductService {
 
-
+  firestoreList: any;
   products: AngularFirestoreCollection<Product>;
   productRef: AngularFireObject<any>;
-  dbURL = 'console.firebase.google.com/project/teste-5b601/firestore';
 
 
 constructor(
   private db: AngularFirestore,
   private fire: AngularFireDatabase, // pega o objeto inteiro
+  private alertController: AlertController,
+
+
 
   ) {}
 
+
+// cria produto
   createProduct(nome: string, qtd: number, precoCusto: number, precoVenda: number): Promise<void>{
     const id = this.db.createId();
 
@@ -37,16 +42,19 @@ constructor(
 
   //lista de produtos
   getProductList(): Observable<Product[]>{
-    return this.db.collection<Product>(`products`).valueChanges();
+    return this.db.collection<Product>(`products`,  (ref: CollectionReference) =>
+    ref.orderBy('nome', 'asc')).valueChanges();
   }
 
+// pega produto individual
   getProduct(id: string){
-    this.productRef = this.fire.object(`products/${id}`);
+    this.productRef = this.fire.object(`/products/${id}`);
     return this.productRef;
+
   }
 
   //lista detalhes do produto
-  getProductDetail(productId: string): Observable<Product>{
+  getProductDetail(productId: string){
     return this.db.collection('products').doc<Product>(productId).valueChanges();
    }
 
@@ -55,7 +63,36 @@ constructor(
      return this.db.doc(`products/${productId}`).delete();
    }
 
-  async updateProduct(id, product: Product): Promise<void>{
-    return await this.db.doc(`project/teste-5b601/firestore/products/`+ id).update(product);
-   }
+
+// edita produto
+  async updateProduct(product: Product): Promise<void>{
+    const alert = this.alertController.create({
+      message: `Editar Produto`,
+      inputs: [
+        {name: 'nome', placeholder: 'Nome', value: product.nome },
+        {name: 'qtd', placeholder: 'Quantidade', value: product.qtd},
+        {name: 'precoCusto', placeholder: 'Preço de Custo', value: product.precoCusto},
+        {name: 'precoVenda', placeholder: 'Preço de Venda', value: product.precoVenda},
+      ],
+      buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel'
+      },
+      {
+        text: 'Atualizar',
+        handler: data => {this.db.doc(`/products/${product.id}`).update(
+          {
+            nome: data.nome,
+            qtd: data.qtd,
+            precoCusto: data.precoCusto,
+            precoVenda: data.precoVenda
+          });
+        }
+      }
+     ],
+    });
+
+    (await alert).present();
+  }
 }

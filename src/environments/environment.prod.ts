@@ -7,5 +7,7 @@ export const environment = {
     storageBucket: "teste-5b601.appspot.com",
     messagingSenderId: "376363341555",
     appId: "1:376363341555:web:1938fec2fb47b54d468986",
+    databaseURL: "https://teste-5b601-default-rtdb.firebaseio.com",
+
   },
 };

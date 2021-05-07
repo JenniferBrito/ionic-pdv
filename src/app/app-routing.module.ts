@@ -17,10 +17,7 @@ const routes: Routes = [
     loadChildren: () => import('./tab3/tab3.module').then(m => m.Tab3PageModule)
   },
 
-  {
-    path: 'update-products',
-    loadChildren: () => import('./update-products/update-products.module').then( m => m.UpdateProductsPageModule)
-  }
+
 
 
 ];

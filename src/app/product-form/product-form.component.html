@@ -11,7 +11,7 @@
   <form [formGroup]="addProductForm" (submit)="addProduct()" novalidate>
     <!--nome do produto-->
       <ion-item>
-        <ion-label stacked>Nome do Produto</ion-label>
+        <ion-label position="floating">Nome do Produto</ion-label>
         <ion-input
           formControlName="nome"
           type="text"
@@ -24,7 +24,7 @@
       *ngIf="!addProductForm.controls.nome.valid
       && addProductForm.controls.nome.touched"
     >
-      <p>Nome inválido!</p>
+      <p style="font-size: small;">Nome inválido!</p>
     </ion-item>
     <ion-input
       [class.invalid]="!addProductForm.controls.nome.valid
@@ -33,7 +33,7 @@
     </ion-input>
     <!--quantidade do produto-->
       <ion-item>
-        <ion-label stacked>Quantidade</ion-label>
+        <ion-label position="floating">Quantidade</ion-label>
         <ion-input
           formControlName="qtd"
           type="number"
@@ -46,7 +46,7 @@
       *ngIf="!addProductForm.controls.qtd.valid
       && addProductForm.controls.qtd.touched"
     >
-      <p>A quantidade tem que ser maior que zero</p>
+      <p style="font-size: small;">A quantidade tem que ser maior que zero</p>
     </ion-item>
     <ion-input
       [class.invalid]="!addProductForm.controls.qtd.valid
@@ -56,7 +56,7 @@
 
     <!--preco custo do produto-->
       <ion-item>
-        <ion-label stacked>Preço de Custo</ion-label>
+        <ion-label position="floating">Preço de Custo</ion-label>
         <ion-input
           formControlName="precoCusto"
           type="number"
@@ -69,7 +69,7 @@
       *ngIf="!addProductForm.controls.precoCusto.valid
       && addProductForm.controls.precoCusto.touched"
     >
-      <p>O preço tem que ser maior que zero</p>
+      <p style="font-size: small;">O preço tem que ser maior que zero</p>
     </ion-item>
     <ion-input
       [class.invalid]="!addProductForm.controls.precoCusto.valid
@@ -79,7 +79,7 @@
 
     <!--preco venda do produto-->
       <ion-item>
-        <ion-label stacked>Preço de Venda</ion-label>
+        <ion-label position="floating">Preço de Venda</ion-label>
         <ion-input
           formControlName="precoVenda"
           type="number"
@@ -92,15 +92,17 @@
       *ngIf="!addProductForm.controls.precoVenda.valid
       && addProductForm.controls.precoVenda.touched"
     >
-      <p>O preço tem que ser maior que zero</p>
+      <p style="font-size: small;">O preço tem que ser maior que zero</p>
     </ion-item>
     <ion-input
       [class.invalid]="!addProductForm.controls.precoVenda.valid
         &&  addProductForm.controls.precoVenda.touched"
     >
     </ion-input>
+<ion-button type="submit" [disabled]= "!addProductForm.valid" size="small" expand="full">
+  Adicionar produto
+</ion-button>
 
-    <button ion-button block type="submit" [disabled]="!addProductForm.valid">Adicionar produto</button>
   </form>
 
 

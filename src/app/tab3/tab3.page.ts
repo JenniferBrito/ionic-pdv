@@ -26,10 +26,14 @@ export class Tab3Page {
     pushPage(){
       this.router.navigate(['/ProductFormComponent']);
     }
+
+
 //lista de produtos
     ngOnInit(){
       this.productList = this.productService.getProductList();
     }
+
+
 //deleta produto
     async deleteProduct(productId: string,): Promise<void>{
       const alert = await this.alertController.create({
@@ -38,16 +42,14 @@ export class Tab3Page {
           {
             text: 'Cancelar',
             role: 'cancel',
-            handler: b => {
+            handler: data => {
               console.log('confirmar cancelamento: b')
             }
           },
           {
             text: 'Confirmar',
             handler: () => {
-              this.productService.deleteProduct(productId).then(() => {
-                this.router.navigateByUrl('');
-              });
+              this.productService.deleteProduct(productId);
             },
           },
         ]
@@ -55,9 +57,12 @@ export class Tab3Page {
 
       await alert.present();
      }
+
+
+
 //edita produto
-      updateProduct(id: string){
-        this.router.navigate(['/update-products']);
+      updateProduct(product: Product){
+        this.productService.updateProduct(product);
      }
   }
 
