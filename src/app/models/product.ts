@@ -1,7 +1,7 @@
 export interface Product {
   id?: string,
   nome: string,
-  qtd: number,
+  qtd: any,
   precoCusto: number,
   precoVenda: number,
 }
