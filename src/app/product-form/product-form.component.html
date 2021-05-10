@@ -19,18 +19,16 @@
         >
         </ion-input>
       </ion-item>
-      <ion-item
-      class="error-message"
+
+      <div
+      class="validator-error"
       *ngIf="!addProductForm.controls.nome.valid
       && addProductForm.controls.nome.touched"
+      style="font-size: smaller;"
     >
-      <p style="font-size: small;">Nome inválido!</p>
-    </ion-item>
-    <ion-input
-      [class.invalid]="!addProductForm.controls.nome.valid
-        &&  addProductForm.controls.nome.touched"
-    >
-    </ion-input>
+      Nome inválido!
+    </div>
+
     <!--quantidade do produto-->
       <ion-item>
         <ion-label position="floating">Quantidade</ion-label>
@@ -41,18 +39,14 @@
         >
         </ion-input>
       </ion-item>
-      <ion-item
+      <div
       class="error-message"
       *ngIf="!addProductForm.controls.qtd.valid
       && addProductForm.controls.qtd.touched"
     >
       <p style="font-size: small;">A quantidade tem que ser maior que zero</p>
-    </ion-item>
-    <ion-input
-      [class.invalid]="!addProductForm.controls.qtd.valid
-        &&  addProductForm.controls.qtd.touched"
-    >
-    </ion-input>
+    </div>
+
 
     <!--preco custo do produto-->
       <ion-item>
@@ -64,18 +58,16 @@
         >
         </ion-input>
       </ion-item>
-      <ion-item
+
+      <div
       class="error-message"
       *ngIf="!addProductForm.controls.precoCusto.valid
       && addProductForm.controls.precoCusto.touched"
     >
       <p style="font-size: small;">O preço tem que ser maior que zero</p>
-    </ion-item>
-    <ion-input
-      [class.invalid]="!addProductForm.controls.precoCusto.valid
-        &&  addProductForm.controls.precoCusto.touched"
-    >
-    </ion-input>
+    </div>
+
+
 
     <!--preco venda do produto-->
       <ion-item>
@@ -87,18 +79,15 @@
         >
         </ion-input>
       </ion-item>
-      <ion-item
+
+      <div
       class="error-message"
       *ngIf="!addProductForm.controls.precoVenda.valid
       && addProductForm.controls.precoVenda.touched"
     >
       <p style="font-size: small;">O preço tem que ser maior que zero</p>
-    </ion-item>
-    <ion-input
-      [class.invalid]="!addProductForm.controls.precoVenda.valid
-        &&  addProductForm.controls.precoVenda.touched"
-    >
-    </ion-input>
+    </div>
+
 <ion-button type="submit" [disabled]= "!addProductForm.valid" size="small" expand="full">
   Adicionar produto
 </ion-button>
