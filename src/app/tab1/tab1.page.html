@@ -6,23 +6,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<!-- listar produtos no carrinho -->
 
-  <!-- listar produtos no carrinho -->
-
-
-
-  <!-- adicionar mais de um produto ao carrinho -->
-  <!-- remover produto do carrinho -->
-  <!-- valor dos produtos -->
-
-
-<!-- valor total da compra-->
-
-
-<!-- finalizar compra -->
-
-<!--forma de pagamento-->
-
-<!-- emitir nota -->
+<ion-content>
+ <ion-list>
+  <ion-item *ngFor="let p of products">
+    <p> {{p.count}}x </p>
+    <ion-label>
+      {{p.nome}}
+    </ion-label>
+  </ion-item>
+</ion-list>
 </ion-content>

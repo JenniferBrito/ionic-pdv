@@ -125,6 +125,7 @@ constructor(
       );
     }else {
       // cria um novo carrinho
+
       const fbDoc = await this.db.collection('cart').add({
         lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
       });
@@ -140,6 +141,7 @@ constructor(
   }
 
 
+  // adiciona produtos no carrinho
    addToCart(productId){
     // atualiza o carrinho
    this.db.collection('cart').doc(this.cartKey).update({
@@ -148,7 +150,7 @@ constructor(
    });
 
    // atualiza estoque do produto
-   this.products.doc(productId).update({
+   this.db.collection('products').doc(productId).update({
      qtd: decrement,
    });
    console.log('adicionado ao firebase');
@@ -162,9 +164,13 @@ constructor(
     });
 
     // atualiza estoque do produto
-    this.products.doc(productId).update({
+    this.db.collection('products').doc(productId).update({
       qtd: increment,
     });
+  }
+
+  async checkout(){
+
   }
 
 
