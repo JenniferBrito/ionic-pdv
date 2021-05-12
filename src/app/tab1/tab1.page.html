@@ -8,13 +8,33 @@
 
 <!-- listar produtos no carrinho -->
 
-<ion-content>
- <ion-list>
-  <ion-item *ngFor="let p of products">
-    <p> {{p.count}}x </p>
-    <ion-label>
-      {{p.nome}}
-    </ion-label>
-  </ion-item>
-</ion-list>
+
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Produtos</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item *ngFor="let p of products">
+      <p>{{ p.nome }}</p>
+      <ion-label>{{ p.count }}x</ion-label>
+    </ion-item>
+
+  </ion-list>
 </ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+

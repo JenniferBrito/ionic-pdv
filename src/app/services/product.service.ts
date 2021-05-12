@@ -170,9 +170,17 @@ constructor(
   }
 
   async checkout(){
+    await this.db.collection('orders').add(this.cartKey);
 
+    this.db.collection('carts').doc(this.cartKey).set({
+      lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
+    });
   }
 
+  getCart(): Observable<any>{
+    return this.db.collection(`cart`,  (ref: CollectionReference) =>
+    ref.orderBy('nome', 'asc')).valueChanges();
+  }
 
 
 }

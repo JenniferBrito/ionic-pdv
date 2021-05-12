@@ -10,14 +10,15 @@ import { Product } from '../models/product';
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
-export class Tab1Page implements OnInit {
+export class Tab1Page  {
 
   public productList: Observable<Product>;
   public products = [];
+  public prod: Observable<Product>;
 
   constructor(
     private productService: ProductService,
-    private alrtCtrl: AlertController,
+    private alertCtrl: AlertController,
   ) {}
 
   ngOnInit(){
@@ -32,6 +33,17 @@ export class Tab1Page implements OnInit {
         });
       }
     );
+  }
+
+  async checkout(){
+    const alert = await this.alertCtrl.create({
+      header: 'Sucesso',
+      message: 'Compra realizada com sucesso',
+      buttons: ['Continuar comprando']
+    });
+
+   await alert.present();
+   this.productService.checkout();
   }
 
   removeFromCart(productId){
