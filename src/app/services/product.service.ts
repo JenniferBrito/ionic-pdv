@@ -142,18 +142,21 @@ constructor(
 
 
   // adiciona produtos no carrinho
-   addToCart(productId){
-    // atualiza o carrinho
-   this.db.collection('cart').doc(this.cartKey).update({
-     [productId]: increment,
-     lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
-   });
+  addToCart(productId){
 
-   // atualiza estoque do produto
-   this.db.collection('products').doc(productId).update({
-     qtd: decrement,
-   });
-   console.log('adicionado ao firebase');
+
+       // atualiza o carrinho
+      this.db.collection('cart').doc(this.cartKey).update({
+        [productId]: increment,
+        lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
+      });
+
+      // atualiza estoque do produto
+      this.db.collection('products').doc(productId).update({
+        qtd: decrement,
+      });
+      console.log('adicionado ao firebase');
+
 }
 
   removeFromCart(productId){
@@ -177,10 +180,7 @@ constructor(
     });
   }
 
-  getCart(): Observable<any>{
-    return this.db.collection(`cart`,  (ref: CollectionReference) =>
-    ref.orderBy('nome', 'asc')).valueChanges();
-  }
+
 
 
 }

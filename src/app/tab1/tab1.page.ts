@@ -12,7 +12,7 @@ import { Product } from '../models/product';
 })
 export class Tab1Page  {
 
-  public productList: Observable<Product>;
+
   public products = [];
   public prod: Observable<Product>;
 
@@ -29,20 +29,16 @@ export class Tab1Page  {
         this.products = allProducts.filter(p =>
           cartItems[p.id]
         ).map(product => {
-          return {...product,count: cartItems[product.id]}
+          return {...product, count: cartItems[product.id]}
         });
       }
     );
   }
 
-  async checkout(){
-    const alert = await this.alertCtrl.create({
-      header: 'Sucesso',
-      message: 'Compra realizada com sucesso',
-      buttons: ['Continuar comprando']
-    });
 
-   await alert.present();
+
+  async checkout(){
+
    this.productService.checkout();
   }
 
