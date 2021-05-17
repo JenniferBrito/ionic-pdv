@@ -66,11 +66,7 @@ export class Tab3Page {
      }
 
 
-     // adiciona produto ao carrinho
-     addToCart(productId){
-       this.productService.addToCart(productId);
-      return console.log('adicionado ao carrinho!');
-     }
+  
   }
 
 

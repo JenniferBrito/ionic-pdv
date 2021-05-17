@@ -24,7 +24,9 @@
 <!--Listar Produtos-->
 <ion-item *ngFor="let product of productList| async" >
 <ion-label>
-  <h2>{{ product.nome}}</h2>
+  <ion-text color="primary">
+    <h2>{{ product.nome}}</h2>
+  </ion-text>
 
 <div class="page-wrapper">
   <div class="row">
@@ -55,16 +57,14 @@
 
 
 <ion-button (click)="deleteProduct(product.id)">
-  <ion-icon name="trash" style="zoom: 2"></ion-icon>
+  <ion-icon name="trash"></ion-icon>
 </ion-button>
 
 <ion-button (click)="updateProduct(product)">
-  <ion-icon name="create-outline" style="zoom: 2"></ion-icon>
+  <ion-icon name="create-outline"></ion-icon>
 </ion-button>
 
-<ion-button (click)="addToCart(product.id)">
-  <ion-icon name="cart-outline" style="zoom: 2"></ion-icon>
-</ion-button>
+
 
 </ion-label>
 

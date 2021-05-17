@@ -1,9 +1,11 @@
+import { AngularFirestore } from '@angular/fire/firestore';
 import { AlertController } from '@ionic/angular';
 import { ProductService } from './../services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab1',
@@ -13,37 +15,31 @@ import { Product } from '../models/product';
 export class Tab1Page  {
 
 
-  public products = [];
+  public products: any[];
   public prod: Observable<Product>;
 
   constructor(
     private productService: ProductService,
-    private alertCtrl: AlertController,
+    private firestore: AngularFirestore,
+    private router: Router,
   ) {}
 
-  ngOnInit(){
-    const cartItems = this.productService.cart.value;
-
-    this.productService.getProductList().pipe(take(1)).subscribe(
-      allProducts => {
-        this.products = allProducts.filter(p =>
-          cartItems[p.id]
-        ).map(product => {
-          return {...product, count: cartItems[product.id]}
-        });
-      }
-    );
+  pushPage(){
+    this.router.navigate(['/search-product']);
   }
+
+
+
 
 
 
   async checkout(){
-
    this.productService.checkout();
   }
 
-  removeFromCart(productId){
+  /* removeFromCart(productId){
    return this.productService.removeFromCart(productId);
   }
-
+ */
 }
+

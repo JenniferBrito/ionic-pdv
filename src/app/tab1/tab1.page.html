@@ -1,23 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Carrinho</ion-title>
+    <ion-title>Venda</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (onClick)="pushPage()">
+        <ion-icon name="search-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-list *ngFor="let p of products">
-  <ion-item >
-    <p slot="start">
-     {{p.count}}x
-      </p>
 
 
-  </ion-item>
-</ion-list>
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar color="success">
+  <ion-toolbar color="primary">
     <ion-button expand="full" (click)="checkout()" fill="clear" color="light">
       Finalizar compra
     </ion-button>

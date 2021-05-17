@@ -3,12 +3,10 @@ import { AngularFirestore, AngularFirestoreCollection, CollectionReference } fro
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonDatetime } from '@ionic/angular';
 import firebase from 'firebase/app';
 import { Plugins } from '@capacitor/core';
 
-const { Storage } = Plugins;
-const cartStorageKey = 'my_cart';
 const increment = firebase.firestore.FieldValue.increment(1);
 const decrement = firebase.firestore.FieldValue.increment(-1);
 
@@ -17,11 +15,11 @@ const decrement = firebase.firestore.FieldValue.increment(-1);
 })
 export class ProductService {
 
-  cart = new BehaviorSubject({});
-  cartKey = null;
   firestoreList: any;
   products: AngularFirestoreCollection<Product>;
   productRef: AngularFireObject<any>;
+  addProduct = [];
+  dataCompra: String;
 
 
 
@@ -29,12 +27,7 @@ constructor(
   private db: AngularFirestore,
   private fire: AngularFireDatabase, // pega o objeto inteiro
   private alertController: AlertController,
-
-
-
-  ) {
-    this.loadCart();
-  }
+  ) {}
 
 
 // cria produto
@@ -110,77 +103,13 @@ constructor(
     (await alert).present();
   }
 
+checkout(){
 
-
-  async loadCart(){
-    const result = await Storage.get({key: cartStorageKey});
-
-    // verifica se há itens no carrinho
-    if (result.value){
-      this.cartKey = result.value;
-      this.db.collection('cart').doc(this.cartKey).valueChanges().subscribe(
-        (result: any) =>  {delete result['lastUpdate'];
-        this.cart.next(result || {});
-        }
-      );
-    }else {
-      // cria um novo carrinho
-
-      const fbDoc = await this.db.collection('cart').add({
-        lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-      this.cartKey = fbDoc.id;
-      await Storage.set({key: cartStorageKey, value: this.cartKey});
-
-      this.db.collection('cart').doc(this.cartKey).valueChanges().subscribe((result: any) => {
-        delete result['lastUpdate'];
-        console.log('carrinho modificado');
-        this.cart.next(result || {});
-      });
-    }
-  }
-
-
-  // adiciona produtos no carrinho
-  addToCart(productId){
-
-
-       // atualiza o carrinho
-      this.db.collection('cart').doc(this.cartKey).update({
-        [productId]: increment,
-        lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-
-      // atualiza estoque do produto
-      this.db.collection('products').doc(productId).update({
-        qtd: decrement,
-      });
-      console.log('adicionado ao firebase');
-
+  this.dataCompra = Date.now().toString();
 }
 
-  removeFromCart(productId){
-    // remove produto do carrinho
-    this.db.collection('cart').doc(this.cartKey).update({
-      [productId]: decrement,
-      lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
-    });
-
-    // atualiza estoque do produto
-    this.db.collection('products').doc(productId).update({
-      qtd: increment,
-    });
-  }
-
-  async checkout(){
-    await this.db.collection('orders').add(this.cartKey);
-
-    this.db.collection('carts').doc(this.cartKey).set({
-      lastUpdate: firebase.firestore.FieldValue.serverTimestamp()
-    });
   }
 
 
 
 
-}

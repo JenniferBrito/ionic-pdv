@@ -1,3 +1,4 @@
+import { SearchProductPage } from './search-product/search-product.page';
 import { ProductFormComponent } from './product-form/product-form.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
@@ -17,9 +18,13 @@ const routes: Routes = [
     loadChildren: () => import('./tab3/tab3.module').then(m => m.Tab3PageModule)
   },
   {
-    path: 'cart',
-    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
+    path: 'search-product',
+    loadChildren: () => import('./search-product/search-product.module').then( m => m.SearchProductPageModule)
   },
+  {
+    path: 'SearchProduct',
+    component: SearchProductPage
+  }
 
 
 
