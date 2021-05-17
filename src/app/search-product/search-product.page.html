@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Buscar produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-searchbar
+  showcancelbutton="always"
+></ion-searchbar>
+
+<ion-list lines="none">
+  <ion-item *ngFor="let p of productsBackup"
+  [detail]="true">
+    <ion-label class="ion-text-wrap">
+      <ion-text color="primary">
+        <h3>{{ p.nome }}</h3>
+      </ion-text>
+      <p>Preço de venda: R${{ p.precoCusto }}</p>
+      <p>Quantidade em estoque: {{ p.qtd }} </p>
+
+      <ion-button (click)="addToCart(products)">
+        <ion-icon name="cart-outline"></ion-icon>
+      </ion-button>
+    </ion-label>
+  </ion-item>
+</ion-list>
+
+</ion-content>
