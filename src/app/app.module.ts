@@ -1,3 +1,4 @@
+import { SearchProductComponent } from './search-product/search-product.component';
 import { environment } from './../environments/environment.prod';
 import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
@@ -15,8 +16,12 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [		AppComponent,
-      ProductFormComponent,
+  declarations: [
+    AppComponent,
+    ProductFormComponent,
+    SearchProductComponent,
+
+
 
 
    ],

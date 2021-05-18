@@ -2,13 +2,11 @@ import { Product } from './../models/product';
 import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '@angular/fire/firestore';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { AlertController, IonDatetime } from '@ionic/angular';
-import firebase from 'firebase/app';
-import { Plugins } from '@capacitor/core';
+import { Observable } from 'rxjs';
+import { AlertController } from '@ionic/angular';
 
-const increment = firebase.firestore.FieldValue.increment(1);
-const decrement = firebase.firestore.FieldValue.increment(-1);
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +18,8 @@ export class ProductService {
   productRef: AngularFireObject<any>;
   addProduct = [];
   dataCompra: String;
+  valorProduto = 0;
+  valorTotal = 0;
 
 
 
@@ -103,9 +103,17 @@ constructor(
     (await alert).present();
   }
 
+
+  comanda(products: Product){
+
+    this.valorProduto = this.valorProduto + products.precoCusto;
+    this.valorTotal = this.valorTotal + this.valorProduto;
+
+  }
 checkout(){
 
   this.dataCompra = Date.now().toString();
+  console.log(this.dataCompra);
 }
 
   }

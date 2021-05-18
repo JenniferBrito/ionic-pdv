@@ -1,22 +1,34 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>Venda</ion-title>
     <ion-buttons slot="end">
-      <ion-button (onClick)="pushPage()">
-        <ion-icon name="search-circle-outline"></ion-icon>
+      <ion-button (click)="pushPage()">
+        <ion-icon slot="icon-only" name="search-circle-outline" ></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-item>
+    <ion-label>Forma de Pagamento</ion-label>
+    <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Selecionar pagamento">
+      <ion-select-option value="cCredito">Cartão de Crédito</ion-select-option>
+      <ion-select-option value="cDebito">Cartão de Débito</ion-select-option>
+      <ion-select-option value="dVista">Dinheiro à vista</ion-select-option>
+
+    </ion-select>
+  </ion-item>
 
 
 </ion-content>
 
 <ion-footer>
   <ion-toolbar color="primary">
-    <ion-button expand="full" (click)="checkout()" fill="clear" color="light">
+    <ion-button expand="full"
+    (click)="checkout()"
+    fill="clear"
+    color="light">
       Finalizar compra
     </ion-button>
   </ion-toolbar>

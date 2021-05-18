@@ -1,16 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import firebase from 'firebase/app';
 import { first } from 'rxjs/operators';
 import { ProductService } from '../services/product.service';
 
+const increment = firebase.firestore.FieldValue.increment(1);
+const decrement = firebase.firestore.FieldValue.increment(-1);
+
 @Component({
   selector: 'app-search-product',
-  templateUrl: './search-product.page.html',
-  styleUrls: ['./search-product.page.scss'],
+  templateUrl: './search-product.component.html',
+  styleUrls: ['./search-product.component.scss'],
 })
-export class SearchProductPage implements OnInit {
+
+export class SearchProductComponent implements OnInit {
   public productsBackup: any[];
   public products: any[];
+  public comanda: any[];
 
   constructor(
     private productService: ProductService,
@@ -19,7 +25,7 @@ export class SearchProductPage implements OnInit {
 
   async ngOnInit() {
     this.products = await this.initializeItems();
-    this.productsBackup = [...this.products];
+
   }
 
 
@@ -36,10 +42,10 @@ export class SearchProductPage implements OnInit {
     const searchTerm = evt.srcElement.value;
 
     if (!searchTerm) {
-      this.productsBackup = [...this.products];
+      return;
     }
 
-    this.products = this.productsBackup.filter(currentProduct => {
+    this.products = this.products.filter(currentProduct => {
       if (currentProduct.nome && searchTerm) {
         return (currentProduct.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
       }
@@ -47,7 +53,10 @@ export class SearchProductPage implements OnInit {
   }
 
   addToCart(products){
-    console.log('adicionado a comanda');
+    
+
+    console.log();
   }
 
 }
+

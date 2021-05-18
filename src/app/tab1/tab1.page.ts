@@ -1,8 +1,6 @@
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AlertController } from '@ionic/angular';
 import { ProductService } from './../services/product.service';
-import { Component, OnInit } from '@angular/core';
-import { first } from 'rxjs/operators';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product';
 import { Router } from '@angular/router';
@@ -25,13 +23,17 @@ export class Tab1Page  {
   ) {}
 
   pushPage(){
-    this.router.navigate(['/search-product']);
+    this.router.navigate(['/SearchProductComponent']);
   }
 
 
 
 
-
+  customActionSheetOptions: any = {
+    header: 'Pagamento',
+    subHeader: 'Selecione forma de pagamento',
+      
+  };
 
   async checkout(){
    this.productService.checkout();
