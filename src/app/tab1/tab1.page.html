@@ -1,46 +1,21 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Venda</ion-title>
-    <ion-buttons slot="end">
-<<<<<<< HEAD
-      <ion-button (click)="pushPage()">
-        <ion-icon slot="icon-only" name="search-circle-outline" ></ion-icon>
-=======
-      <ion-button (onClick)="pushPage()"> <!--o correto é (click)="pushPage()" -->
-        <ion-icon name="search-circle-outline"></ion-icon>
->>>>>>> 973533f2cb067d7b3860a20978424b25f555fc7f
-      </ion-button>
-    </ion-buttons>git 
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <ion-item>
-    <ion-label>Forma de Pagamento</ion-label>
-    <ion-select [interfaceOptions]="customActionSheetOptions" interface="action-sheet" placeholder="Selecionar pagamento">
-      <ion-select-option value="cCredito">Cartão de Crédito</ion-select-option>
-      <ion-select-option value="cDebito">Cartão de Débito</ion-select-option>
-      <ion-select-option value="dVista">Dinheiro à vista</ion-select-option>
-
-    </ion-select>
-  </ion-item>
+    <ion-header translucent>
+      <ion-toolbar>
+        <ion-title>Venda</ion-title>
+        <ion-button slot="end" (click)="pushPage()">
+          <ion-buttons>
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-buttons>
+        </ion-button>
+      </ion-toolbar>
+    </ion-header>
 
 
-</ion-content>
+    <ion-content fullscreen>
+      <ion-item *ngFor = "let p of comanda">
+        
+      </ion-item>
 
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-button expand="full"
-    (click)="checkout()"
-    fill="clear"
-    color="light">
-      Finalizar compra
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>
-
-
-
+    </ion-content>
 
 
 

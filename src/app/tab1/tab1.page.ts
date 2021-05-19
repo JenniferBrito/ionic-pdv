@@ -13,8 +13,9 @@ import { Router } from '@angular/router';
 export class Tab1Page  {
 
 
-  public products: any[];
+  public products: Observable<Product[]>;
   public prod: Observable<Product>;
+  public comanda: any;
 
   constructor(
     private productService: ProductService,
@@ -29,11 +30,6 @@ export class Tab1Page  {
 
 
 
-  customActionSheetOptions: any = {
-    header: 'Pagamento',
-    subHeader: 'Selecione forma de pagamento',
-      
-  };
 
   async checkout(){
    this.productService.checkout();

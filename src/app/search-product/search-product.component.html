@@ -1,6 +1,6 @@
-<!-- <ion-header>
+<ion-header>
   <ion-toolbar>
-    <p>   Buscar produto</p>
+    <p>Buscar produto</p>
     <ion-buttons slot="start">
       <ion-back-button text="" defaultHref=""></ion-back-button>
     </ion-buttons>
@@ -9,19 +9,21 @@
 <ion-content>
   <ion-searchbar
   showcancelbutton="always"
-></ion-searchbar>
+  placeholder="Produto"
+  (ionInput)="filterProduct($event)"
+  clearInput>
+</ion-searchbar>
 
 <ion-list lines="none">
-  <ion-item *ngFor="let p of productsz"
-  [detail]="true">
+  <ion-item *ngFor="let p of products">
     <ion-label class="ion-text-wrap">
       <ion-text color="primary">
         <h3>{{ p.nome }}</h3>
       </ion-text>
-      <p>Preço de venda: R${{ p.precoCusto }}</p>
+      <p>Preço de venda: R${{ p.precoVenda }}</p>
       <p>Quantidade em estoque: {{ p.qtd }} </p>
 
-      <ion-button (click)="addToCart(products)">
+      <ion-button (click)="addToComanda(p)">
         <ion-icon name="cart-outline"></ion-icon>
       </ion-button>
     </ion-label>
@@ -29,4 +31,5 @@
 </ion-list>
 
 </ion-content>
- -->
+
+

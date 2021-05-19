@@ -17,9 +17,7 @@ export class ProductService {
   products: AngularFirestoreCollection<Product>;
   productRef: AngularFireObject<any>;
   addProduct = [];
-  dataCompra: String;
-  valorProduto = 0;
-  valorTotal = 0;
+
 
 
 
@@ -104,16 +102,9 @@ constructor(
   }
 
 
-  comanda(products: Product){
 
-    this.valorProduto = this.valorProduto + products.precoCusto;
-    this.valorTotal = this.valorTotal + this.valorProduto;
-
-  }
 checkout(){
 
-  this.dataCompra = Date.now().toString();
-  console.log(this.dataCompra);
 }
 
   }
