@@ -1,23 +1,52 @@
     <ion-header translucent>
       <ion-toolbar>
         <ion-title>Venda</ion-title>
-        <ion-button slot="end" (click)="pushPage()">
-          <ion-buttons>
-            <ion-icon name="search-outline"></ion-icon>
+        <ion-buttons slot="end">
+          <ion-button  (click)="pushPage()">
+            <ion-icon slot="icon-only" name="search-outline"></ion-icon>
+          </ion-button>
           </ion-buttons>
-        </ion-button>
       </ion-toolbar>
     </ion-header>
 
 
-    <ion-content fullscreen>
-      <ion-item *ngFor = "let p of comanda">
-        
-      </ion-item>
+    <ion-content padding>
+      <div *ngIf="isComandaEmpty" class="empty-cart">
+        <div class="empty-results">
+          <h3 text-center>
+              <ion-icon name="cart"></ion-icon>
+          </h3>
+          <p text-center>
+            Não há itens
+          </p>
+        </div>
+      </div>
+      <div *ngIf="!isComandaEmpty" class="cart-itm-wrap">
 
+        <ion-card *ngFor="let itm of  cItems">
+          <ion-card-content>
+            <ion-row>
+              <ion-col col-7>
+                <h3 style="margin: 7px" text-left>{{itm.name}}</h3>
+
+                <div class="itm-footer">
+                  <span (click)="removeItem(itm)" class="remove">
+                    Remover
+                  </span>
+                  <span class="price">
+                    {{itm.vTotal }}
+                  </span>
+                </div>
+
+
+              </ion-col>
+
+
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </div>
     </ion-content>
-
-
 
 
 
