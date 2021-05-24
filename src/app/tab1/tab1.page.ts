@@ -1,9 +1,12 @@
+import { Product } from './../models/product';
 import { ComandaService } from './../services/comanda.service';
 import { LoadingController } from '@ionic/angular';
 import { ProductService } from './../services/product.service';
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Component({
   selector: 'app-tab1',
@@ -15,15 +18,8 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class Tab1Page {
-
-
-  cItems: any[] = [];
-  valorTotal: number = 0;
-  isItemLoaded: boolean = false;
-  isComandaEmpty: boolean = true;
-
-
+export class Tab1Page implements OnInit{
+  comanda: Product[] = [];
   constructor(
     private loadingCtrl: LoadingController,
     private comandaService: ComandaService,
@@ -31,50 +27,40 @@ export class Tab1Page {
     private router: Router,
   ) {}
 
+
+  ngOnInit(){
+    this.comanda = this.comandaService.getComanda();
+  }
+
+
   pushPage(){
     this.router.navigate(['/SearchProductComponent']);
     console.log('amiga foi')
   }
 
-  ionViewDidLoad(){
-    this.loadComandaItems();
-  }
 
+    decreaseComandaItem(product){
+      this.comandaService.decreaseProduct(product);
+    }
 
-  async loadComandaItems(){
-    let loader = this.loadingCtrl.create({
-      message: 'Aguarde...'
-    });
+    increaseComandaItem(product){
+      this.comandaService.addComanda(product);
+    }
 
-    (await loader).present();
+    removeComandaItem(product){
+      this.comandaService.removeProduct(product);
+    }
 
-    this.comandaService.getItems().then(async val => {
-      this.cItems = val;
-
-      if(this.cItems.length > 0){
-        this.cItems.forEach((v, indx) => {
-          this.valorTotal += parseInt(v.vTotal);
-        });
-        this.isComandaEmpty = false;
-      }
-
-      this.isItemLoaded = true;
-
-      (await loader).dismiss();
-    }).catch(err => {});
-
-  }
-
+    getTotal(){
+      //fazer correção 
+      this.comanda.reduce((i, j) => i + j.precoVenda * j.amount, 0)
+    }
 
   async checkout(){
    this.productService.checkout();
   }
 
-  removeItem(item){
-    this.comandaService.removeFromComanda(item).then(()=>{
-      this.loadComandaItems();
-    });
-  }
+
 
 }
 

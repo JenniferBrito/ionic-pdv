@@ -1,71 +1,75 @@
-import { Storage } from '@ionic/storage-angular';
 
 import { Injectable } from '@angular/core';
+import { CollectionReference, AngularFirestore } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Product } from '../models/product';
 
 
-const cKey = 'items';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ComandaService {
 
+  private comanda = [];
+  private comandaItemCount = new BehaviorSubject(0);
+
   constructor(
-    public storage: Storage,
+    private db: AngularFirestore
   ){}
 
+  getProductList(): Observable<Product[]>{
+
+    return this.db.collection<Product>(`products`,  (ref: CollectionReference) =>
+    ref.orderBy('nome', 'asc')).valueChanges();
+  }
+
+  getComanda(){
+    return this.comanda;
+  }
+
+  getComandaItemCount(){
+    return this.comandaItemCount;
+  }
+
   addComanda(product){
-    return this.getItems().then(result => {
-      if(result){
-        if(!this.containsObject(product, result)){
-          result.push(product);
-          return this.storage.set(cKey, result);
-        }else{
-          let index = result.findIndex(x => x.product_id == product.id);
-          let qtdAnt = parseInt(result[index].count);
-          product.count = (qtdAnt + product.count);
-          let precoAtual = (parseInt(product.vTotal) * product.count);
-          product.vTotal = precoAtual;
-          result.splice(index, 1);
-          result.push(product);
-          return this.storage.set(cKey, result);
+    let added = false;
+
+    for (let p of this.comanda){
+      if(p.id === product.id){
+        p.amount += 1;
+        added = true;
+        console.log(p);
+        break;
+
+      }
+    }
+    if(!added){
+      product.amount = 1;
+      this.comanda.push(product);
+      console.log(product);
+
+    }
+  }
+
+  decreaseProduct(product){
+    for(let [index, p] of this.comanda.entries()){
+      if (p.id === product.id){
+        p.amount -= 1;
+        if(p.amount == 0){
+          this.comanda.splice(index, 1)
         }
-      }else{
-        return this.storage.set(cKey, result);
-
-      }
-    })
-  }
-
-  removeFromComanda(product) {
-    return this.getItems().then(result => {
-      if (result) {
-        var productIndex = result.indexOf(product);
-        result.splice(productIndex, 1);
-        return this.storage.set(cKey, result);
-      }
-    })
-  }
-
-  containsObject(obj, list): boolean {
-    if (!list.length) {
-      return false;
-    }
-
-    if (obj == null) {
-      return false;
-    }
-    var i;
-    for (i = 0; i < list.length; i++) {
-      if (list[i].product_id == obj.product_id) {
-        return true;
       }
     }
-    return false;
+    this.comandaItemCount.next(this.comandaItemCount.value - 1);
   }
 
-  getItems(){
-    return this.storage.get(cKey);
+  removeProduct(product){
+    for (let [index, p] of this.comanda.entries()){
+      if (p.id === product.id){
+        this.comandaItemCount.next(this.comandaItemCount.value  - p.amount);
+        this.comanda.splice(index, 1);
+      }
+    }
   }
-
 }
