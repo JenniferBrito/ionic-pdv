@@ -60,6 +60,15 @@
       </ion-item>
 
       <ion-item>
+        <ion-label position="floating">Valor do desconto</ion-label>
+        <ion-input
+          [(ngModel)]="valorDesconto"
+          type="number">
+        </ion-input>
+      </ion-item>
+
+
+      <ion-item>
         <ion-grid>
           <ion-row>
             <ion-col size="9">
@@ -72,6 +81,13 @@
         </ion-grid>
       </ion-item>
       </ion-list>
+
+
+      <ion-button expand="full" (click)="checkout()">
+        Finalizar Venda
+      </ion-button>
+
+
     </ion-content>
 
 

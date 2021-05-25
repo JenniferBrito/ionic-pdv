@@ -11,8 +11,14 @@ import { Product } from '../models/product';
 })
 export class ComandaService {
 
+
+  data: number;
+  valorSubTotal: number;
+  valorTotal: number;
+  fPagamento: String;
   private comanda = [];
   private comandaItemCount = new BehaviorSubject(0);
+
 
   constructor(
     private db: AngularFirestore
@@ -71,5 +77,33 @@ export class ComandaService {
         this.comanda.splice(index, 1);
       }
     }
+  }
+
+  getTotal(valorDesconto){
+    this.valorSubTotal =  this.comanda.reduce((i, j) => i + j.precoVenda * j.amount, 0);
+
+    this.valorTotal = this.valorSubTotal - valorDesconto;
+
+   return this.valorTotal;
+
+
+  }
+
+
+
+  checkout(comanda){
+    // pegar items da comanda
+    // pegar data da venda
+    // forma de pagamento
+    const key = this.db.createId();
+    this.data = Date.now();
+    this.db.collection('vendas').doc(key).set({
+      key,
+      data: this.data,
+      produtos: comanda.items,
+      valorTotal: this.valorTotal,
+      fPagamento: this.fPagamento,
+    });
+    // adicionar atualização do estoque
   }
 }

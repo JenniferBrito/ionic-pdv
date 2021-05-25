@@ -5,7 +5,6 @@ import { ProductService } from './../services/product.service';
 import { Component, Injectable, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -20,6 +19,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class Tab1Page implements OnInit{
   comanda: Product[] = [];
+  valorDesconto: number = 0;
   constructor(
     private loadingCtrl: LoadingController,
     private comandaService: ComandaService,
@@ -52,15 +52,11 @@ export class Tab1Page implements OnInit{
     }
 
     getTotal(){
-      //fazer correção 
-      this.comanda.reduce((i, j) => i + j.precoVenda * j.amount, 0)
+      return this.comandaService.getTotal(this.valorDesconto);
     }
 
   async checkout(){
-   this.productService.checkout();
+   this.comandaService.checkout(this.comanda);
   }
-
-
-
 }
 

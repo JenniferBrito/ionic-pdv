@@ -101,12 +101,6 @@ constructor(
     (await alert).present();
   }
 
-
-
-checkout(){
-
-}
-
   }
 
 
