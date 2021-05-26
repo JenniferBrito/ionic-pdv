@@ -12,17 +12,19 @@ import { Product } from '../models/product';
 export class ComandaService {
 
 
-  data: number;
+  data: Date = new Date();
   valorSubTotal: number;
   valorTotal: number;
   fPagamento: String;
+  items: ComandaService;
   private comanda = [];
   private comandaItemCount = new BehaviorSubject(0);
 
 
   constructor(
     private db: AngularFirestore
-  ){}
+  ){
+  }
 
   getProductList(): Observable<Product[]>{
 
@@ -46,6 +48,7 @@ export class ComandaService {
         p.amount += 1;
         added = true;
         console.log(p);
+
         break;
 
       }
@@ -54,6 +57,7 @@ export class ComandaService {
       product.amount = 1;
       this.comanda.push(product);
       console.log(product);
+
 
     }
   }
@@ -89,21 +93,28 @@ export class ComandaService {
 
   }
 
-
+  getFormaPagamento(radioChecked){
+    return this.fPagamento = radioChecked;
+  }
 
   checkout(comanda){
     // pegar items da comanda
     // pegar data da venda
     // forma de pagamento
-    const key = this.db.createId();
-    this.data = Date.now();
-    this.db.collection('vendas').doc(key).set({
-      key,
-      data: this.data,
-      produtos: comanda.items,
-      valorTotal: this.valorTotal,
-      fPagamento: this.fPagamento,
-    });
+      const key = this.db.createId();
+      this.data;
+      this.db.collection('vendas').doc(key).set({
+        key,
+        data: this.data,
+        produtos: comanda,
+        valorSubTotal: this.valorSubTotal,
+        valorTotal: this.valorTotal,
+        fPagamento: this.fPagamento,
+      });
+
+      console.log(this.data);
+      console.log(this.fPagamento);
+
     // adicionar atualização do estoque
   }
 }
