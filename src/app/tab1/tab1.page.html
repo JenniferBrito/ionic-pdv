@@ -70,10 +70,10 @@
 
       <ion-item>
         <ion-label>Pagamento</ion-label>
-        <ion-select>
-          <ion-select-option value="bird">À Vista (Dinheiro)</ion-select-option>
-          <ion-select-option value="cat">À Vista (Débito)</ion-select-option>
-          <ion-select-option value="dog">Cartão de Crédito</ion-select-option>
+        <ion-select id="pg" [(ngModel)]="pg" (ionChange)="getPagamento()">
+          <ion-select-option value="din">À Vista (Dinheiro)</ion-select-option>
+          <ion-select-option value="cd">À Vista (Débito)</ion-select-option>
+          <ion-select-option value="cc">Cartão de Crédito</ion-select-option>
         </ion-select>
       </ion-item>
 

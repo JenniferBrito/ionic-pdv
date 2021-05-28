@@ -1,11 +1,10 @@
+import { Product } from './../models/product';
 import { ComandaService } from './../services/comanda.service';
-import { Tab1Page } from './../tab1/tab1.page';
 import { first } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from 'firebase/app';
 import { ProductService } from '../services/product.service';
-import { Product } from '../models/product';
 
 
 
@@ -17,7 +16,7 @@ import { Product } from '../models/product';
 
 export class SearchProductComponent implements OnInit{
 
-  products: any[];
+  products: Product[];
   productsBackup: any[];
 
 
@@ -52,7 +51,7 @@ export class SearchProductComponent implements OnInit{
     });
   }
 
-  addToComanda(product){
+  addToComanda(product: Product){
    this.addComanda.addComanda(product);
   }
 }

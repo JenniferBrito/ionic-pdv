@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 export class Tab1Page implements OnInit{
   comanda: Product[] = [];
   valorDesconto: number = 0;
+  pg: String;
   constructor(
     private comandaService: ComandaService,
     private router: Router,
@@ -31,8 +32,7 @@ export class Tab1Page implements OnInit{
 
   pushPage(){
     this.router.navigate(['/SearchProductComponent']);
-    console.log('amiga foi')
-  }
+    }
 
 
     decreaseComandaItem(product){
@@ -56,9 +56,7 @@ export class Tab1Page implements OnInit{
   }
 
 
-  getPagamento(value){
-    this.comandaService.getFormaPagamento(value);
-    console.log(value);
+  getPagamento(){
+   return this.comandaService.getFormaPagamento(this.pg);
   }
 }
-
