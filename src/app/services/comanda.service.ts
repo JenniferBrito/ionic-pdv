@@ -2,18 +2,13 @@ import { Product } from './../models/product';
 import { Injectable } from '@angular/core';
 import { CollectionReference, AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
-import firebase from 'firebase/app';
 import { AlertController } from '@ionic/angular';
-import { isEmpty } from 'lodash';
 
 
-const INCREMENT = firebase.firestore.FieldValue.increment(1);
-const DECREMENT = firebase.firestore.FieldValue.increment(-1);
 @Injectable({
   providedIn: 'root'
 })
 export class ComandaService {
-
 
   data: Date = new Date();
   valorSubTotal: number;
@@ -22,11 +17,12 @@ export class ComandaService {
   items: ComandaService;
   private comanda = [];
   private comandaItemCount = new BehaviorSubject(0);
-  public pd: Product;
+  public qtdProd;
+
+
   constructor(
     private db: AngularFirestore,
     public alertController: AlertController
-
   ){
   }
 
@@ -49,6 +45,7 @@ export class ComandaService {
     for (let p of this.comanda){
       if(p.id === product.id){
         p.amount += 1;
+        this.qtdProd = product.qtd -1;
         added = true;
         console.log(p);
 
@@ -57,11 +54,11 @@ export class ComandaService {
       }
     }
     if(!added){
-      product.amount = 1
+      product.amount = 1,
+      this.qtdProd = product.qtd -1,
 
-      console.log(product.qtd);
       this.comanda.push(product);
-      console.log(product);
+      console.log(this.comanda);
       console.log(product.qtd);
 
 
@@ -72,6 +69,7 @@ export class ComandaService {
     for(let [index, p] of this.comanda.entries()){
       if (p.id === product.id){
         p.amount -= 1;
+
         console.log(product.qtd);
         if(p.amount == 0){
           this.comanda.splice(index, 1)
@@ -108,27 +106,40 @@ export class ComandaService {
     });
     await alert.present();
   }
-  
-  checkout(comanda){
-    // forma de pagamento
+
+
+updateQtdProd(qtd){
+  var pd: Product;
+ const id = pd.id;
+  return this.db.doc(`products/${id}`).update({qtd: qtd});
+
+
+}
+  checkout(venda){
+    var success: boolean;
     if(this.comanda.length != 0 ){
       const key = this.db.createId();
-
       this.db.collection('vendas').doc(key).set({
         key,
         data: this.data,
-        produtos: comanda,
+        produtos: venda,
         valorSubTotal: this.valorSubTotal,
         valorTotal: this.valorTotal,
         fPagamento: this.fPagamento,
       });
-      console.log(comanda);
-      console.log(this.data);
-      console.log(this.fPagamento);
-
+      success = true;
+      console.log(this.qtdProd)
+      console.log(venda);
     }else{
       this.presentAlert();
     }
-    }
+
+    venda.forEach(()=> this.updateQtdProd(this.qtdProd));
+ /*    if(success === true){
+      this.updateQtdProd(this.qtdProd);
+    } */
+  }
+
 
 }
+
