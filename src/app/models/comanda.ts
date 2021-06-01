@@ -1,6 +1,7 @@
-export interface Comanda{
+export interface Comanda {
+  proId?: String;
   proNome: String;
-  proId: String;
   proQtd: number;
   proValor: number;
+  amount: number;
 }

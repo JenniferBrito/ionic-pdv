@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { CollectionReference, AngularFirestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
+import  firebase from 'firebase';
 
+const INCREMENT = firebase.firestore.FieldValue.increment(1);
+const DECREMENT = firebase.firestore.FieldValue.increment(-1);
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +16,12 @@ export class ComandaService {
   data: Date = new Date();
   valorSubTotal: number;
   valorTotal: number;
+  desconto: number;
   fPagamento: String;
   items: ComandaService;
   private comanda = [];
   private comandaItemCount = new BehaviorSubject(0);
-  public qtdProd;
+
 
 
   constructor(
@@ -45,7 +49,9 @@ export class ComandaService {
     for (let p of this.comanda){
       if(p.id === product.id){
         p.amount += 1;
-        this.qtdProd = product.qtd -1;
+        this.db.doc(`products/${product.id}`).update({
+          qtd: DECREMENT,
+        });
         added = true;
         console.log(p);
 
@@ -55,7 +61,9 @@ export class ComandaService {
     }
     if(!added){
       product.amount = 1,
-      this.qtdProd = product.qtd -1,
+      this.db.doc(`products/${product.id}`).update({
+        qtd: DECREMENT,
+      });
 
       this.comanda.push(product);
       console.log(this.comanda);
@@ -69,7 +77,9 @@ export class ComandaService {
     for(let [index, p] of this.comanda.entries()){
       if (p.id === product.id){
         p.amount -= 1;
-
+        this.db.doc(`products/${product.id}`).update({
+          qtd: INCREMENT,
+        });
         console.log(product.qtd);
         if(p.amount == 0){
           this.comanda.splice(index, 1)
@@ -89,8 +99,9 @@ export class ComandaService {
   }
 
   getTotal(valorDesconto){
+    this.desconto = valorDesconto;
     this.valorSubTotal =  this.comanda.reduce((i, j) => i + j.precoVenda * j.amount, 0);
-    this.valorTotal = this.valorSubTotal - valorDesconto;
+    this.valorTotal = this.valorSubTotal - this.desconto;
      return this.valorTotal;
   }
 
@@ -108,15 +119,12 @@ export class ComandaService {
   }
 
 
-updateQtdProd(qtd){
-  var pd: Product;
- const id = pd.id;
-  return this.db.doc(`products/${id}`).update({qtd: qtd});
 
 
-}
+
+
   checkout(venda){
-    var success: boolean;
+
     if(this.comanda.length != 0 ){
       const key = this.db.createId();
       this.db.collection('vendas').doc(key).set({
@@ -127,17 +135,22 @@ updateQtdProd(qtd){
         valorTotal: this.valorTotal,
         fPagamento: this.fPagamento,
       });
-      success = true;
-      console.log(this.qtdProd)
-      console.log(venda);
+      while(this.comanda.length > 0 ){
+        this.comanda.pop();
+      }
+      if(this.comanda.length === 0){
+        this.valorSubTotal = 0;
+        
+        this.valorSubTotal = 0;
+      }
+      console.log();
+      console.log(this.comanda);
     }else{
       this.presentAlert();
     }
 
-    venda.forEach(()=> this.updateQtdProd(this.qtdProd));
- /*    if(success === true){
-      this.updateQtdProd(this.qtdProd);
-    } */
+
+
   }
 
 
