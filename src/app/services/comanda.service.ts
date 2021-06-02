@@ -140,7 +140,8 @@ export class ComandaService {
       }
       if(this.comanda.length === 0){
         this.valorSubTotal = 0;
-        
+        this.desconto = 0;
+        this.fPagamento = '';
         this.valorSubTotal = 0;
       }
       console.log();

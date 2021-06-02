@@ -4,6 +4,7 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
+import { Venda } from '../models/venda';
 
 
 
@@ -99,6 +100,13 @@ constructor(
     });
 
     (await alert).present();
+  }
+
+  // lista de vendas
+  getVendas(): Observable<Venda[]>{
+    return this.db.collection<Venda>(`vendas`,  (ref: CollectionReference) =>
+    ref.orderBy('data', 'asc')).valueChanges();
+
   }
 
   }

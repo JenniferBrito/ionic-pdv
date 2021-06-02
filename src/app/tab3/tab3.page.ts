@@ -42,9 +42,7 @@ export class Tab3Page {
           {
             text: 'Cancelar',
             role: 'cancel',
-            handler: data => {
-              console.log('confirmar cancelamento: b')
-            }
+
           },
           {
             text: 'Confirmar',
@@ -66,7 +64,7 @@ export class Tab3Page {
      }
 
 
-  
+
   }
 
 
