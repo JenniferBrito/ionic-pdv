@@ -16,13 +16,14 @@ import { ProductFormComponent } from './product-form/product-form.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { DetailComponent } from './detail/detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductFormComponent,
     SearchProductComponent,
-
+      DetailComponent
    ],
   entryComponents: [],
   imports: [

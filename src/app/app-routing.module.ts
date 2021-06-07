@@ -3,6 +3,7 @@ import { ProductFormComponent } from './product-form/product-form.component';
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { SearchProductComponent } from './search-product/search-product.component';
+import { DetailComponent } from './detail/detail.component';
 
 const routes: Routes = [
    {
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'SearchProductComponent',
     component: SearchProductComponent
+  },
+  {
+    path: 'DetailComponent',
+    component: DetailComponent
   },
 
 
