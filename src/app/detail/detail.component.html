@@ -10,23 +10,11 @@
 
 <ion-content [fullscreen]="true">
   <ion-item *ngFor="let v of vendaList| async" >
-    <ion-item *ngFor="let item of v.produtos">
-      <ion-label>
-        <ion-text>
-          {{v.key}}
-        </ion-text>
-      </ion-label>
-      <ion-label>
-        <ion-text>
-          {{item.nome}}
-        </ion-text>
-      </ion-label>
-      <ion-label>
-        <ion-text>
-          {{v.data}}
-        </ion-text>
-      </ion-label>
-    </ion-item>
+  <ion-label>
+    <ion-text>
+      {{v.valorTotal}}
+    </ion-text>
+  </ion-label>
 
 
 </ion-item>

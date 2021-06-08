@@ -1,10 +1,11 @@
+import { Venda } from './../models/venda';
 import { Product } from './../models/product';
-import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument, CollectionReference } from '@angular/fire/firestore';
 import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AlertController } from '@ionic/angular';
-import { Venda } from '../models/venda';
+
 
 
 
@@ -17,6 +18,7 @@ export class ProductService {
   firestoreList: any;
   products: AngularFirestoreCollection<Product>;
   productRef: AngularFireObject<any>;
+  vendaRef: AngularFirestoreDocument<any>;
   addProduct = [];
 
 
@@ -103,9 +105,17 @@ constructor(
   }
 
   // lista de vendas
-  getVendas(): Observable<Venda[]>{
+  getVendasList(): Observable<Venda[]>{
     return this.db.collection<Venda>(`vendas`,  (ref: CollectionReference) =>
     ref.orderBy('data', 'asc')).valueChanges();
+
+  }
+
+  // pega venda individual
+  getVenda(id: string){
+    this.vendaRef = this.db.collection('vendas').doc(id);
+    console.log(this.vendaRef.valueChanges())
+    return this.vendaRef;
 
   }
 
