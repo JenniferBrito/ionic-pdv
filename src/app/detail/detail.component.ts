@@ -19,6 +19,7 @@ export class DetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.vendaList = this.productService.getVendasList();
      this.productService.getVenda(this.uid);
 
   }

@@ -1,11 +1,12 @@
 
+import { Timestamp } from 'rxjs/internal/operators/timestamp';
 import { Product } from './product';
 export interface Venda
 {
   key: String;
-  produtos;
   valorTotal: number;
-  valorSubtotal: number;
+  produtos: any[];
+  valorSubTotal: number;
   fPagamento: String;
-  data: Date;
+  data;
 }

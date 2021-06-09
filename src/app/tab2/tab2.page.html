@@ -7,15 +7,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<ion-item *ngFor="let v of vendaList| async"  button (click)="onClick()" detail="false">
-    <ion-label>
-    <ion-text>
-      {{v.key}}
-    </ion-text>
-  </ion-label>
+  <ion-card *ngFor="let v of vendaList |async">
+    <ion-card-header *ngFor="let item of v.produtos">
+      <ion-card-subtitle>{{v.data}}</ion-card-subtitle>
+      <ion-card-title>{{v.fPagamento}}</ion-card-title>
+    </ion-card-header>
 
-</ion-item>
+    <ion-card-content>
+      Valor sem desconto: {{v.valorSubTotal}}
+      Valor total: {{v.valorTotal}}
+      Produtos: {{v.produtos}}
 
+    </ion-card-content>
+  </ion-card>
 
 
 </ion-content>
