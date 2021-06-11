@@ -13,7 +13,8 @@ const DECREMENT = firebase.firestore.FieldValue.increment(-1);
 })
 export class ComandaService {
 
-  data: Date = new Date();
+  data: Date =  new Date();
+  dataVenda: String;
   valorSubTotal: number;
   valorTotal: number;
   desconto: number;
@@ -127,9 +128,10 @@ export class ComandaService {
 
     if(this.comanda.length != 0 ){
       const key = this.db.createId();
+
       this.db.collection('vendas').doc(key).set({
         key,
-        data: this.data,
+        data: this.data.toDateString(),
         produtos: venda,
         valorSubTotal: this.valorSubTotal,
         valorTotal: this.valorTotal,

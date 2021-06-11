@@ -4,8 +4,9 @@ import { Product } from './product';
 export interface Venda
 {
   key: String;
+  prod: Product[];
   valorTotal: number;
-  produtos: any[];
+  produtos: Product[];
   valorSubTotal: number;
   fPagamento: String;
   data;

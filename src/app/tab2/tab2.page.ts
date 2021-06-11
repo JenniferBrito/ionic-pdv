@@ -1,3 +1,4 @@
+import { Product } from './../models/product';
 import { Venda } from './../models/venda';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -12,15 +13,16 @@ import { ProductService } from '../services/product.service';
 })
 export class Tab2Page {
 public vendaList: Observable<Venda[]>;
-public produtos;
+public produtos: Observable<Product[]>;
+public item:  Product[];
 
 
   constructor(
     private db: AngularFirestore,
     public productService: ProductService,
   ) {
-    const prod = this.db.collection("venda");
-    this.produtos = prod.valueChanges();
+    const prod = this.db.collection("vendas");
+   // this.produtos = prod.valueChanges();
   }
 
 
