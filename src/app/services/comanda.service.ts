@@ -48,7 +48,8 @@ export class ComandaService {
     let added = false;
 
     for (let p of this.comanda){
-      if(p.id === product.id){
+      if(p.id === product.id && product.qtd > 0){
+
         p.amount += 1;
         this.db.doc(`products/${product.id}`).update({
           qtd: DECREMENT,
@@ -58,9 +59,9 @@ export class ComandaService {
 
         break;
 
-      }
+      }this.alertProduto();
     }
-    if(!added){
+    if(!added && product.qtd > 0){
       product.amount = 1,
       this.db.doc(`products/${product.id}`).update({
         qtd: DECREMENT,
@@ -71,6 +72,8 @@ export class ComandaService {
       console.log(product.qtd);
 
 
+    }else{
+      this.alertProduto();
     }
   }
 
@@ -114,6 +117,14 @@ export class ComandaService {
     const alert = await this.alertController.create({
       header: 'AVISO!',
       message: 'Comanda vazia, adicione itens',
+      buttons: ['Ok']
+    });
+    await alert.present();
+  }
+  async alertProduto(){
+    const alert = await this.alertController.create({
+      header: 'AVISO!',
+      message: 'Produto fora de estoque',
       buttons: ['Ok']
     });
     await alert.present();

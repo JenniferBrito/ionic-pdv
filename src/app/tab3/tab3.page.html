@@ -23,10 +23,11 @@
 
 <div class="page-wrapper">
   <div class="row">
-    <div class="column">
+    <div class="column" *ngIf="product.qtd > 0; else elseBlock">
       <p>Quantidade: {{ product.qtd }}</p>
     </div>
   </div>
+  <ng-template #elseBlock>Produto fora de estoque!</ng-template>
 </div>
 
 <div class="page-wrapper">

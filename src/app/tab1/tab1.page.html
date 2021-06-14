@@ -76,16 +76,17 @@
         <ion-input
         [(ngModel)]="valorDesconto"
         placeholder= "Desconto"
-          type="number">
+          type="number"
+          [clearInput]="true">
         </ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Pagamento</ion-label>
         <ion-select id="pg" [(ngModel)]="pg" (ionChange)="getPagamento()">
-          <ion-select-option value="din">À Vista (Dinheiro)</ion-select-option>
-          <ion-select-option value="cd">À Vista (Débito)</ion-select-option>
-          <ion-select-option value="cc">Cartão de Crédito</ion-select-option>
+          <ion-select-option value="Dinheiro">À Vista (Dinheiro)</ion-select-option>
+          <ion-select-option value="Cartão de Débito">À Vista (Débito)</ion-select-option>
+          <ion-select-option value="Cartão de Crédito">Cartão de Crédito</ion-select-option>
         </ion-select>
       </ion-item>
 
