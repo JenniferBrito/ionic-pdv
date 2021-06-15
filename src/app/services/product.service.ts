@@ -119,6 +119,12 @@ constructor(
 
   }
 
+   //deletar venda
+   deleteVenda(vendaId: string): Promise<void>{
+
+    return this.db.doc(`vendas/${vendaId}`).delete();
+  }
+
   }
 
 

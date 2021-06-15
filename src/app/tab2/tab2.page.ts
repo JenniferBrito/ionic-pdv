@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
 import { ProductService } from '../services/product.service';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -20,9 +21,9 @@ public item:  Product[];
   constructor(
     private db: AngularFirestore,
     public productService: ProductService,
+    private alertController: AlertController,
   ) {
-    const prod = this.db.collection("vendas");
-   // this.produtos = prod.valueChanges();
+  
   }
 
 
@@ -31,5 +32,25 @@ public item:  Product[];
     this.vendaList = this.productService.getVendasList();
   }
 
+  //deleta produto
+  async deleteVenda(vendaId: string,): Promise<void>{
+    const alert = await this.alertController.create({
+      message: `Deletar Venda?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
 
+        },
+        {
+          text: 'Confirmar',
+          handler: () => {
+            this.productService.deleteVenda(vendaId);
+          },
+        },
+      ]
+    });
+
+    await alert.present();
+   }
 }

@@ -36,8 +36,16 @@
         <ion-row>
          Forma de pagamento: {{v.fPagamento}}
         </ion-row>
+
       </ion-col>
 
+      <ion-col>
+        <ion-row>
+          <ion-button (click)="deleteVenda(v.key)" size="small">
+            Excluir venda
+          </ion-button>
+        </ion-row>
+      </ion-col>
 
 
 

@@ -15,57 +15,55 @@
 
 
 <!--Listar Produtos-->
-<ion-item *ngFor="let product of productList| async" >
-<ion-label>
-  <ion-text color="primary">
-    <h2>{{ product.nome}}</h2>
-  </ion-text>
+<ion-card *ngFor="let product of productList| async" >
+<ion-card-header>
+  <ion-card-title>
+    {{ product.nome}}
+  </ion-card-title>
+</ion-card-header>
 
-<div class="page-wrapper">
-  <div class="row">
-    <div class="column" *ngIf="product.qtd > 0; else elseBlock">
-      <p>Quantidade: {{ product.qtd }}</p>
+<ion-card-content>
+
+  <div class="page-wrapper">
+    <div class="row">
+      <div class="column" *ngIf="product.qtd > 0; else elseBlock">
+        <p>Quantidade: {{ product.qtd }}</p>
+      </div>
+    </div>
+    <ng-template  #elseBlock>Produto fora de estoque!</ng-template>
+  </div>
+
+  <div class="page-wrapper">
+    <div class="row">
+      <div class="column">
+        <p>Preco de Custo: {{ product.precoCusto }}</p>
+      </div>
     </div>
   </div>
-  <ng-template #elseBlock>Produto fora de estoque!</ng-template>
-</div>
 
-<div class="page-wrapper">
-  <div class="row">
-    <div class="column">
-      <p>Preco de Custo: {{ product.precoCusto }}</p>
+  <div class="page-wrapper">
+    <div class="row">
+      <div class="column">
+        <p>Preco de Venda: {{ product.precoVenda }}</p>
+      </div>
     </div>
   </div>
-</div>
-
-<div class="page-wrapper">
-  <div class="row">
-    <div class="column">
-      <p>Preco de Venda: {{ product.precoVenda }}</p>
-    </div>
-  </div>
-</div>
 
 
 
+      <ion-row size="1.5">
+        <ion-col>
+          <ion-button (click)="deleteProduct(product.id)" size="small">
+            <ion-icon name="trash" size="small"></ion-icon>
+          </ion-button>
+        </ion-col>
 
-
-<ion-button (click)="deleteProduct(product.id)">
-  <ion-icon name="trash"></ion-icon>
-</ion-button>
-
-<ion-button (click)="updateProduct(product)">
-  <ion-icon name="create-outline"></ion-icon>
-</ion-button>
-
-
-
-</ion-label>
-
-
-
-
-
-</ion-item>
-
+        <ion-col >
+          <ion-button (click)="updateProduct(product)" size="small">
+            <ion-icon name="create-outline" size="small"></ion-icon>
+          </ion-button>
+        </ion-col>
+     </ion-row>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
