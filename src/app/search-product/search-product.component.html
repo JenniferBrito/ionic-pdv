@@ -21,7 +21,14 @@
         <h3>{{ p.nome }}</h3>
       </ion-text>
       <p>Preço de venda: R${{ p.precoVenda }}</p>
-      <p>Quantidade em estoque: {{ p.qtd }} </p>
+      <div *ngIf="p.qtd > 0; else elseBlock">
+
+        <p>Quantidade em estoque: {{ p.qtd }} </p>
+      </div>
+      <div>
+        <ng-template  #elseBlock>Produto fora de estoque!</ng-template>
+
+      </div>
 
       <ion-button (click)="addToComanda(p)">
         <ion-icon name="cart-outline"></ion-icon>

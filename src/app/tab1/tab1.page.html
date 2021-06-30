@@ -14,7 +14,19 @@
       <ion-list >
         <ion-item *ngFor="let p of comanda" class="ion-text-wrap">
         <ion-grid>
+          <ion-row>
+            <ion-col size="9">
+              <b>{{p.nome}}</b>
+            </ion-col>
+            <ion-col size="" class="ion-text-end">
+              R$ {{p.amount * p.precoVenda}}
+            </ion-col>
+          </ion-row>
+
           <ion-row class="ion-align-items-center">
+            <ion-col >
+              Quantidade: {{p.amount}}
+             </ion-col>
             <ion-col size="2" class="ion-align-items-center">
               <ion-button
               color="medium"
@@ -22,10 +34,6 @@
               (click)="decreaseComandaItem(p)">
               <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
             </ion-button>
-            </ion-col>
-
-            <ion-col size="1" class="ion-align-self-center">
-              {{p.amount}}
             </ion-col>
 
             <ion-col size="2" class="ion-align-self-end">
@@ -37,25 +45,18 @@
             </ion-button>
             </ion-col>
 
-            <ion-col size="2" offset="5">
-              <ion-button
-              color="medium"
-              fill="clear"
-              (click)="removeComandaItem(p)">
-              <ion-icon name="close-circle" slot="icon-only"></ion-icon>
-            </ion-button>
-            </ion-col>
-          </ion-row >
-
+          </ion-row>
 
           <ion-row>
-            <ion-col size="9">
-              <b>{{p.nome}}</b>
-            </ion-col>
-            <ion-col size="3" class="ion-text-end">
-              {{p.amount * p.precoVenda}}
+            <ion-col>
+              <ion-button
+              (click)="removeComandaItem(p)">
+              Remover Produto
+            </ion-button>
             </ion-col>
           </ion-row>
+
+
         </ion-grid>
       </ion-item>
 
@@ -98,7 +99,7 @@
                 Total
               </ion-col>
               <ion-col size="3" class="ion-text-end">
-                {{ getTotal() }}
+               R$ {{ getTotal() }}
               </ion-col>
             </ion-row>
           </ion-grid>

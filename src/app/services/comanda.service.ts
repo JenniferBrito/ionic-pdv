@@ -59,7 +59,9 @@ export class ComandaService {
 
         break;
 
-      }this.alertProduto();
+      }else if(product.qtd <= 0){
+        this.alertProduto();
+      }
     }
     if(!added && product.qtd > 0){
       product.amount = 1,
@@ -72,7 +74,7 @@ export class ComandaService {
       console.log(product.qtd);
 
 
-    }else{
+    }else if(product.qtd <= 0){
       this.alertProduto();
     }
   }
