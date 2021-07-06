@@ -107,7 +107,7 @@ constructor(
   // lista de vendas
   getVendasList(): Observable<Venda[]>{
     return this.db.collection<Venda>(`vendas`,  (ref: CollectionReference) =>
-    ref.orderBy('data', 'desc')).valueChanges();
+    ref.orderBy('data', 'asc')).valueChanges();
 
   }
 
